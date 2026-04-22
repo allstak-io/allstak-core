@@ -1,7 +1,7 @@
 {
   "name": "@allstak/core",
   "version": "0.1.1",
-  "description": "AllStak core — transport, buffer, retry, event builder. Platform-agnostic foundation for @allstak/browser and @allstak/react-native.",
+  "description": "AllStak core \u2014 transport, buffer, retry, event builder. Platform-agnostic foundation for @allstak/browser and @allstak/react-native.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -12,7 +12,11 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,7 +26,12 @@
   "bugs": {
     "url": "https://github.com/abdualziz-urnt/allstak-core/issues"
   },
-  "keywords": ["allstak", "observability", "sdk", "core"],
+  "keywords": [
+    "allstak",
+    "observability",
+    "sdk",
+    "core"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -30,7 +39,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --sourcemap"
   },
   "dependencies": {
-    "allstak-js": "^0.1.1"
+    "allstak-js": "github:abdualziz-urnt/allstak-js"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
