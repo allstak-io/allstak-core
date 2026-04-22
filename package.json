@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/abdualziz-urnt/allstak-core.git"
+    "url": "https://github.com/allstak-io/allstak-core.git"
   },
   "homepage": "https://allstak.sa",
   "bugs": {
@@ -39,7 +39,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --sourcemap"
   },
   "dependencies": {
-    "allstak-js": "github:abdualziz-urnt/allstak-js"
+    "allstak-js": "github:allstak-io/allstak-js"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
