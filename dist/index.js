@@ -20,12 +20,12 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  AllStak: () => import_allstak_js.AllStak,
-  DatabaseModule: () => import_allstak_js.DatabaseModule,
-  Span: () => import_allstak_js.Span
+  AllStak: () => import_js.AllStak,
+  DatabaseModule: () => import_js.DatabaseModule,
+  Span: () => import_js.Span
 });
 module.exports = __toCommonJS(index_exports);
-var import_allstak_js = require("allstak-js");
+var import_js = require("@allstak/js");
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   AllStak,
