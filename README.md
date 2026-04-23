@@ -1,64 +1,116 @@
-# @allstak-io/core
+# @allstak/core
 
-Platform-agnostic AllStak SDK core — initialization, capture, and context APIs.  
-Used internally by `@allstak-io/browser`, `@allstak-io/react`, and `@allstak-io/react-native`.
+**Shared runtime-agnostic primitive powering every AllStak JavaScript SDK.**
 
-## Install
+[![npm version](https://img.shields.io/npm/v/@allstak/core.svg)](https://www.npmjs.com/package/@allstak/core)
+[![CI](https://github.com/allstak-io/allstak-core/actions/workflows/ci.yml/badge.svg)](https://github.com/allstak-io/allstak-core/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Auth required:** GitHub Packages requires a token with `read:packages` scope.
+Platform-agnostic core for the AllStak JavaScript SDKs — re-exports init, capture, and context APIs with no DOM, React, or React Native dependencies.
 
-### 1. Configure `.npmrc`
+## Dashboard
 
-Add to your project root `.npmrc` (or `~/.npmrc`):
+View captured events live at [app.allstak.sa](https://app.allstak.sa).
 
-```ini
-@allstak-io:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
-```
+![AllStak dashboard](https://app.allstak.sa/images/dashboard-preview.png)
 
-`YOUR_GITHUB_PAT` must be a [GitHub Personal Access Token](https://github.com/settings/tokens) with `read:packages` scope.
+## Features
 
-### 2. Install
+- Stable public surface shared by `@allstak/browser`, `@allstak/react`, and `@allstak/react-native`
+- `AllStak.init` / `captureException` / `captureMessage` / `addBreadcrumb`
+- User and tag context helpers
+- Distributed tracing (`startSpan`, `getTraceId`)
+- Cron heartbeats and HTTP/DB capture
+- Zero browser or Node-specific code — safe for isomorphic builds
+
+## What You Get
+
+Once integrated, every event flows to your AllStak dashboard:
+
+- **Errors** — stack traces, breadcrumbs, release + environment tags
+- **Logs** — structured logs with search and filters
+- **Traces** — distributed spans with propagated trace IDs
+- **Alerts** — email and webhook notifications on regressions
+
+Most users should install a runtime-specific SDK (`@allstak/js`, `@allstak/browser`, `@allstak/react`, `@allstak/react-native`) which depends on `@allstak/core`.
+
+## Installation
 
 ```bash
-npm install @allstak-io/core@0.1.1
-# or
-pnpm add @allstak-io/core@0.1.1
+npm install @allstak/core
 ```
 
-## Usage
+## Quick Start
+
+> Create a project at [app.allstak.sa](https://app.allstak.sa) to get your API key.
 
 ```ts
-import { AllStak } from '@allstak-io/core';
+import { AllStak } from '@allstak/core';
 
 AllStak.init({
   apiKey: process.env.ALLSTAK_API_KEY!,
   environment: 'production',
-  release: 'v1.0.0',
-  // ingest: 'https://api.allstak.sa'  ← default, can omit
 });
 
-AllStak.captureException(new Error('something went wrong'));
-AllStak.captureMessage('Startup complete', 'info');
+AllStak.captureException(new Error('test: hello from allstak-core'));
 ```
 
-## What's exported
+Run the file — the test error appears in your dashboard within seconds.
 
-| Export | Description |
-|--------|-------------|
-| `AllStak` | Main SDK object — `init`, `captureException`, `captureMessage`, etc. |
-| `AllStakConfig` | Type for `AllStak.init(config)` |
-| `Span` | Distributed tracing span class |
-| `DatabaseModule` | DB auto-instrumentation module |
-| `Breadcrumb`, `LogEvent`, `LogLevel`, `HttpRequestItem`, `SpanData`, `DbQueryItem`, `HeartbeatOptions` | Types |
+## Get Your API Key
 
-## GitHub Packages
+1. Sign up at [app.allstak.sa](https://app.allstak.sa)
+2. Create a project
+3. Copy your API key from **Project Settings → API Keys**
+4. Export it as `ALLSTAK_API_KEY` or pass it to `AllStak.init(...)`
 
-- **Package:** `@allstak-io/core`
-- **Registry:** `https://npm.pkg.github.com`
-- **Repo:** [github.com/allstak-io/allstak-core](https://github.com/allstak-io/allstak-core)
-- **Releases:** [github.com/allstak-io/allstak-core/releases](https://github.com/allstak-io/allstak-core/releases)
+## Configuration
 
-## Versioning
+| Option | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `apiKey` | `string` | yes | — | Project API key (`ask_live_…`) |
+| `environment` | `string` | no | — | Deployment env |
+| `release` | `string` | no | — | Version or git SHA |
+| `host` | `string` | no | `https://api.allstak.sa` | Ingest host override |
+| `user` | `{ id?, email? }` | no | — | Default user context |
+| `tags` | `Record<string,string>` | no | — | Default tags |
+| `maxBreadcrumbs` | `number` | no | `50` | Ring buffer size |
 
-Releases follow [SemVer](https://semver.org). Tags must match `package.json` version exactly (e.g. `v0.1.1`). The release workflow fails if there's a mismatch.
+## Example Usage
+
+Capture an exception with context:
+
+```ts
+AllStak.captureException(new Error('checkout failed'), { cartId: 'c_9' });
+```
+
+Send a log message:
+
+```ts
+AllStak.captureMessage('Cache warmed', 'info');
+```
+
+Set user and tags:
+
+```ts
+AllStak.setUser({ id: 'u_1', email: 'dev@example.com' });
+AllStak.setTag('service', 'api');
+```
+
+## Production Endpoint
+
+Production endpoint: `https://api.allstak.sa`. Override via `host` for self-hosted installs:
+
+```ts
+AllStak.init({ apiKey: '...', host: 'https://allstak.mycorp.com' });
+```
+
+## Links
+
+- Documentation: https://docs.allstak.sa
+- Dashboard: https://app.allstak.sa
+- Source: https://github.com/allstak-io/allstak-core
+
+## License
+
+MIT © AllStak
