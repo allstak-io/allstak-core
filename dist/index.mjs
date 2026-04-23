@@ -3,7 +3,7 @@ import {
   AllStak,
   Span,
   DatabaseModule
-} from "allstak-js";
+} from "@allstak/js";
 export {
   AllStak,
   DatabaseModule,

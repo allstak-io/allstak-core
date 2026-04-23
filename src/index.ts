@@ -1,13 +1,13 @@
 /**
- * @allstak-io/core — platform-agnostic core API.
+ * @allstak/core — platform-agnostic core API.
  *
  * Re-exports the initialization, capture, and context APIs that every
  * platform-specific package builds on top of. Contains NO window/DOM
  * references, no React, no React-Native.
  *
- * The concrete implementation lives in `@allstak-io/allstak-js`. This package
+ * The concrete implementation lives in `@allstak/js`. This package
  * keeps it separated by a stable public surface so platform packages can depend
- * on `@allstak-io/core` without pulling browser/React code.
+ * on `@allstak/core` without pulling browser/React code.
  */
 export {
   AllStak,
@@ -21,4 +21,4 @@ export {
   type DbQueryItem,
   DatabaseModule,
   type HeartbeatOptions,
-} from '@allstak-io/allstak-js';
+} from '@allstak/js';
